@@ -1,8 +1,8 @@
 # tsoha
 
-##Sovelluksen aihe on:
+## Sovelluksen aihe on:
  
-###Keskustelusovellus
+### Keskustelusovellus
 
 Kuvaus kurssisivulta, ominaisuudet tulevat muuttumaan/tarkentumaan 
 projektin edetessä
@@ -11,7 +11,7 @@ Sovelluksessa näkyy keskustelualueita, joista jokaisella on tietty aihe.
 Alueilla on keskusteluketjuja, jotka muodostuvat viesteistä. Jokainen 
 käyttäjä on peruskäyttäjä tai ylläpitäjä.
 
-###Sovelluksen ominaisuuksia:
+### Sovelluksen ominaisuuksia:
 
 Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
 Käyttäjä näkee sovelluksen etusivulla listan alueista sekä jokaisen alueen 
