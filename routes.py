@@ -23,12 +23,11 @@ def thread_view(id):
 
 @app.route("/forum/thread/<int:id>")
 def messages_view(id):
-    sql = """SELECT id, title, writer, message,  date, thread_id
+    sql = """SELECT id, writer, message, date, thread_id
     FROM messages WHERE thread_id=:id"""
     result = db.session.execute(text(sql), {"id":id})
     messages = result.fetchall()
-    print(messages)
-    return render_template("messages.html", messages=messages)
+    return render_template("messages.html", messages=messages, thread_id=id)
 
 @app.route("/loginpage")
 def loginpage():
@@ -78,3 +77,14 @@ def signup():
 
     session["username"] = username
     return redirect("/")
+
+@app.route("/postmessage/<int:id>",methods=["POST"])
+def postmessage(id):
+    message = request.form["message"]
+    writer = session["username"]
+    thread_id = id
+    sql = "INSERT INTO messages (writer, message, thread_id) VALUES (:writer, :message, :thread_id)"
+
+    db.session.execute(text(sql), {"writer":writer, "message":message, "thread_id":thread_id})
+    db.session.commit()
+    return redirect(request.referrer)
