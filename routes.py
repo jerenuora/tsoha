@@ -20,10 +20,9 @@ def thread_view(id):
 
 @app.route("/forum/thread/<int:id>")
 def messages_view(id):
-    sql = """SELECT id, title, writer, message,  date, thread_id 
+    sql = """SELECT id, title, writer, message,  date, thread_id
     FROM messages WHERE thread_id=:id"""
     result = db.session.execute(text(sql), {"id":id})
     messages = result.fetchall()
     print(messages)
     return render_template("messages.html", messages=messages)
-
