@@ -4,9 +4,6 @@
   {% block content %}
 
   <body>
-    {% if alert %}
-    <h2>{{alert}}</h2>
-    {%endif%}
     <form action="/signup" method="POST">
     <p>Käyttäjänimi: </p>
     <input type="text" name="username">
