@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+<html>
+  {% block content %}
+
+  <body>
+    <p>Viestejä: </p>
+    <table>
+        <tr>
+            <th>Viesti</th>
+            <th>Kirjoittaja</th>
+            <th>Aika</th>
+
+
+        </tr>
+        <tr>
+            {% for message in messages %}
+            <td>
+
+            {{message.message}}
+            </td>
+            <td>{{message.id}}</td>
+            <td>{{message.date}}</td>
+        </tr>
+
+    {%endfor%}
+
+</table>
+  </body>
+  {% endblock %}
+</html>
