@@ -4,7 +4,11 @@
   {% block content %}
 
   <body>
-    <p>Tänne tekstiä</p>
+    <p>Tässä foorumeita: </p>
+    {% for forum in forums %}
+    <hr>
+    <a href="forum/{{forum.name}}">{{forum.name}}</a>
+    {%endfor%}
   </body>
   {% endblock %}
 </html>
