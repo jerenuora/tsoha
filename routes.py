@@ -10,3 +10,10 @@ def index():
     forums = result.fetchall()
     return render_template("index.html", forums=forums)
 
+@app.route("/forum/<int:id>")
+def thread_view(id):
+    sql = "SELECT id, title, forum_id FROM threads WHERE forum_id=:id"
+    result = db.session.execute(text(sql), {"id":id})
+    threads = result.fetchall()
+    return render_template("threads.html", threads=threads)
+

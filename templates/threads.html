@@ -4,23 +4,22 @@
   {% block content %}
 
   <body>
-    <p>Tässä foorumeita: </p>
+    <p>Ketjuja: </p>
     <table>
         <tr>
-            <th>Foorumi</th>
-            <th>Ketjuja</th>
+            <th>Nimi</th>
             <th>Viestejä</th>
             <th>Viimeisin viesti</th>
 
 
         </tr>
         <tr>
-            {% for forum in forums %}
+            {% for thread in threads %}
             <td>
 
-            <a href="forum/{{forum.id}}">{{forum.name}}</a>
+            <a href="thread/{{thread.title}}">{{thread.title}}</a>
             </td>
-            <td>{{forum.id}}</td>
+            <td>{{thread.id}}</td>
         </tr>
 
     {%endfor%}
