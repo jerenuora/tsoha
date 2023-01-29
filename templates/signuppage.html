@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+<html>
+  {% block content %}
+
+  <body>
+    <form action="/signup" method="POST">
+    <p>Käyttäjänimi: </p>
+    <input type="text" name="username">
+    <p>Salasana: </p>
+    <input type="password" name="password">
+    <p>Salasana uudelleen: </p>
+    <input type="password" name="password_confirmation">
+    <input type="submit" value="Luo käyttäjä">
+    </body>
+  {% endblock %}
+</html>

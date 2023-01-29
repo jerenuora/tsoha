@@ -18,3 +18,10 @@ CREATE TABLE messages (
     date DATE NOT NULL DEFAULT CURRENT_DATE,
     thread_id INTEGER REFERENCES threads
 );
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    admin BOOLEAN
+);

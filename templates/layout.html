@@ -7,8 +7,12 @@
     <title>Tsoha Forum {% block title %}{% endblock %}</title>
   </head>
   <a href="/"><h2>Tsoha Forum</h2></a>
-  <a href="/">Kirjautuminen/logout</a>
-  <a href="/">lisää linkkiä</a>
+  {% if session.username %}
+  <a href="/logout">Kirjaudu ulos, {{session.username}}</a>
+  {% else %}
+  <a href="/loginpage">Kirjaudu sisään</a>
+  <a href="/signuppage">Luo tunnus</a>
+{% endif %}
 
 
   <hr>

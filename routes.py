@@ -1,7 +1,9 @@
 from app import app
-from flask import render_template
+from flask import redirect, render_template, request, session
 from db import db
 from sqlalchemy.sql import text
+
+from werkzeug.security import check_password_hash, generate_password_hash
 
 @app.route("/")
 def index():
@@ -26,3 +28,41 @@ def messages_view(id):
     messages = result.fetchall()
     print(messages)
     return render_template("messages.html", messages=messages)
+
+@app.route("/loginpage")
+def loginpage():
+    return render_template("loginpage.html")
+
+
+@app.route("/login",methods=["POST"])
+def login():
+    username = request.form["username"]
+    password = request.form["password"]
+
+    #TODO: implement username and password check
+
+    session["username"] = username
+    return redirect("/")
+ 
+ 
+@app.route("/logout")
+def logout():
+    del session["username"]
+    return redirect("/")
+
+
+@app.route("/signuppage")
+def signuppage():
+    return render_template("signuppage.html")
+
+@app.route("/signup",methods=["POST"])
+def signup():
+    username = request.form["username"]
+    password = request.form["password"]
+    hash_value = generate_password_hash(password)
+    sql = "INSERT INTO users (username, password) VALUES (:username, :password)"
+    db.session.execute(text(sql), {"username":username, "password":hash_value})
+    db.session.commit()
+
+    session["username"] = username
+    return redirect("/")
