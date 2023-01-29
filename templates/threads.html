@@ -25,6 +25,20 @@
     {%endfor%}
 
 </table>
+{% if session.username %}
+
+<div class="newthreadform">
+    <form  action="/postthread/{{forum_id}}" method="POST">
+        
+        Lisää ketju:
+        <br>
+        <input class="titlearea" type="text" name="title">
+        <textarea class="textarea" type="text" name="message"></textarea>
+        <input type="submit" value="Lähetä">
+    </form>
+</div>
+{%endif%}
+
   </body>
   {% endblock %}
 </html>

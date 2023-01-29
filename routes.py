@@ -19,7 +19,7 @@ def thread_view(id):
     result = db.session.execute(text(sql), {"id":id})
     threads = result.fetchall()
     print(threads)
-    return render_template("threads.html", threads=threads)
+    return render_template("threads.html", threads=threads, forum_id=id)
 
 @app.route("/forum/thread/<int:id>")
 def messages_view(id):
@@ -86,5 +86,24 @@ def postmessage(id):
     sql = "INSERT INTO messages (writer, message, thread_id) VALUES (:writer, :message, :thread_id)"
 
     db.session.execute(text(sql), {"writer":writer, "message":message, "thread_id":thread_id})
+    db.session.commit()
+    return redirect(request.referrer)
+
+@app.route("/postthread/<int:id>",methods=["POST"])
+def postthread(id):
+    title = request.form["title"]
+    message = request.form["message"]
+    writer = session["username"]
+    sql = "INSERT INTO threads (title, owner, forum_id) VALUES (:title, :owner, :forum_id)"
+    db.session.execute(text(sql), {"title":title, "owner":writer, "forum_id":id})
+    db.session.commit()
+
+    sql = "SELECT MAX(id) FROM threads WHERE forum_id=:id"
+    result = db.session.execute(text(sql), {"id":id})
+    thread_id = result.fetchall()
+
+    sql = "INSERT INTO messages (writer, message, thread_id) VALUES (:writer, :message, :thread_id)"
+
+    db.session.execute(text(sql), {"writer":writer, "message":message, "thread_id":thread_id[0][0]})
     db.session.commit()
     return redirect(request.referrer)

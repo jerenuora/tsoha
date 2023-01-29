@@ -43,3 +43,28 @@ td {
   resize: none;
 
 }
+.newthreadform {
+  padding: 5%;
+}
+
+.newthreadform .textarea   {
+  width: 100%;
+  height: 150px;
+  padding: 5px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+
+}
+.newthreadform .titlearea   {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+
+}
