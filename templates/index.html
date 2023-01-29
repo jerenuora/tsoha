@@ -5,10 +5,27 @@
 
   <body>
     <p>Tässä foorumeita: </p>
-    {% for forum in forums %}
-    <hr>
-    <a href="forum/{{forum.name}}">{{forum.name}}</a>
+    <table>
+        <tr>
+            <th>Foorumi</th>
+            <th>Ketjuja</th>
+            <th>Viestejä</th>
+            <th>Viimeisin viesti</th>
+
+
+        </tr>
+        <tr>
+            {% for forum in forums %}
+            <td>
+
+            <a href="forum/{{forum.name}}">{{forum.name}}</a>
+            </td>
+            <td>{{forum.id}}</td>
+        </tr>
+
     {%endfor%}
+
+</table>
   </body>
   {% endblock %}
 </html>
