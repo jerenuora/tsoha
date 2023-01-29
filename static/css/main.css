@@ -24,3 +24,7 @@ td {
   border-radius: 5px;
 
 }
+
+.alert {
+  color: red;
+}

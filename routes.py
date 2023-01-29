@@ -1,5 +1,6 @@
 from app import app
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, flash
+
 from db import db
 from sqlalchemy.sql import text
 
@@ -38,11 +39,22 @@ def loginpage():
 def login():
     username = request.form["username"]
     password = request.form["password"]
+    sql = "SELECT id, password FROM users WHERE username=:username"
+    result = db.session.execute(text(sql), {"username":username})
+    user = result.fetchone()    
 
-    #TODO: implement username and password check
+    if not user:
+            flash("Väärä käyttäjänimi")
+            return redirect("/loginpage")
+    else:
+        hash_value = user.password
+        if check_password_hash(hash_value, password):
+                session["username"] = username
+                return redirect("/")
+        else:
+            flash("Väärä salasana")
+            return redirect("/loginpage")
 
-    session["username"] = username
-    return redirect("/")
  
  
 @app.route("/logout")
