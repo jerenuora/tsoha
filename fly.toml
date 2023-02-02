@@ -1,9 +1,12 @@
-# fly.toml file generated for tsohaforum on 2023-02-02T17:45:43+02:00
+# fly.toml file generated for tsohaforum on 2023-02-02T18:03:28+02:00
 
 app = "tsohaforum"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
+
+[build]
+  builder = "paketobuildpacks/builder:base"
 
 [env]
   PORT = "5000"
