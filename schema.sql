@@ -12,7 +12,6 @@ CREATE TABLE threads (
 
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY, 
-    title TEXT NOT NULL, 
     writer TEXT NOT NULL,
     message TEXT NOT NULL,
     date DATE NOT NULL DEFAULT CURRENT_DATE,
