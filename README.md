@@ -4,7 +4,7 @@
  
 ### Keskustelusovellus
 
-Sovellusta voi testata tuotannossa osoitteessa [tsohaforum.fly.dev](https://tsohaforum.fly.dev)
+Sovellusta voi testata tuotannossa osoitteessa [tsohaforum.fly.dev](https://tsohaforum.fly.dev) (antaa aluksi internal server errorin, mutta hetken käynnisteltyään toimii)
 
 Kuvaus kurssisivulta, ominaisuudet tulevat muuttumaan/tarkentumaan 
 projektin edetessä
