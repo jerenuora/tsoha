@@ -6,9 +6,6 @@
 
 Sovellusta voi testata tuotannossa osoitteessa [tsohaforum.fly.dev](https://tsohaforum.fly.dev) (antaa aluksi internal server errorin, mutta hetken käynnisteltyään toimii)
 
-Kuvaus kurssisivulta, ominaisuudet tulevat muuttumaan/tarkentumaan 
-projektin edetessä
-
 Sovelluksessa näkyy keskustelualueita, joista jokaisella on tietty aihe. 
 Alueilla on keskusteluketjuja, jotka muodostuvat viesteistä. Jokainen 
 käyttäjä on peruskäyttäjä tai ylläpitäjä.
