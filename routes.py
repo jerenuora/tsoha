@@ -17,7 +17,7 @@ def index():
     result = db.session.execute(text(sql))
     threadcount = result.fetchall()
 
-    sql = """SELECT count(M.message) FROM messages M, threads T, forums F
+    sql = """SELECT count(M.message), max(date) FROM messages M, threads T, forums F
                 WHERE M.thread_id = T.id and T.forum_id = F.id GROUP BY F.id ORDER BY F.id"""
     result = db.session.execute(text(sql))
     messagecount = result.fetchall()
