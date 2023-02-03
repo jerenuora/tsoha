@@ -30,8 +30,8 @@ def thread_view(id):
     sql = "SELECT id, title, forum_id FROM threads WHERE forum_id=:id"
     result = db.session.execute(text(sql), {"id": id})
     threads = result.fetchall()
-    sql = """SELECT count(M.message) FROM messages M, threads T
-            WHERE M.thread_id = T.id  GROUP BY T.id ORDER BY T.id"""
+    sql = """SELECT count(M.message), max(date)  FROM messages M, threads T
+            WHERE M.thread_id = T.id GROUP BY T.id ORDER BY T.id """
     result = db.session.execute(text(sql))
     messagecount = result.fetchall()
 
