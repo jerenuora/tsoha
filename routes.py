@@ -12,11 +12,17 @@ def index():
     sql = "SELECT id, name FROM forums"
     result = db.session.execute(text(sql))
     forums = result.fetchall()
+
     sql = "SELECT count(title) FROM threads GROUP BY forum_id ORDER BY forum_id"
     result = db.session.execute(text(sql))
     threadcount = result.fetchall()
 
-    return render_template("index.html", forums=forums, threadcount=threadcount)
+    sql = """SELECT count(M.message) FROM messages M, threads T, forums F
+                WHERE M.thread_id = T.id and T.forum_id = F.id GROUP BY F.id ORDER BY F.id"""
+    result = db.session.execute(text(sql))
+    messagecount = result.fetchall()
+
+    return render_template("index.html", forums=forums, threadcount=threadcount, messagecount=messagecount)
 
 
 @app.route("/forum/<int:id>")
