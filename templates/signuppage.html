@@ -4,6 +4,12 @@
   {% block content %}
 
   <body>
+    {% for message in get_flashed_messages()  %}
+    <div class="alert" >
+      {{message}}
+    </div>
+    {% endfor %}
+
     <form action="/signup" method="POST">
     <p>Käyttäjänimi: </p>
     <input type="text" name="username">

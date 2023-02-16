@@ -56,9 +56,14 @@ def loginpage():
 def login():
     username = request.form["username"]
     password = request.form["password"]
+    if not username or not password:
+        flash("Syotä kirjautumistiedot")
+        return redirect("/loginpage")
+
     sql = "SELECT id, password FROM users WHERE username=:username"
     result = db.session.execute(text(sql), {"username": username})
     user = result.fetchone()
+
 
     if not user:
         flash("Väärä käyttäjänimi")
@@ -88,6 +93,15 @@ def signuppage():
 def signup():
     username = request.form["username"]
     password = request.form["password"]
+    password_confirmation = request.form["password_confirmation"]
+    
+    if not username or not password:
+        flash("Täytä kaikki kentät")
+        return redirect("/signuppage")
+    if password != password_confirmation:
+        flash("Salasanat eivät ole samat")
+        return redirect("/signuppage")
+
     hash_value = generate_password_hash(password)
     sql = "INSERT INTO users (username, password) VALUES (:username, :password)"
     db.session.execute(
