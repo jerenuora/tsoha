@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+<html>
+  {% block content %}
+
+  <body>
+    {% for message in get_flashed_messages()  %}
+    <div class="alert" >
+      {{message}}
+    </div>
+    {% endfor %}
+
+    <form action="/search" method="GET">
+    <p>Hakusana: </p>
+    <input type="text" name="searchword">
+    <input type="submit" value="Etsi">
+    </body>
+</form>
+{%if messages%}
+<table>
+    <tr>
+        <th>Viesti</th>
+        <th>Kirjoittaja</th>
+        <th>Aika</th>
+    </tr>
+    <tr>
+        {% for message in messages %}
+        <td>
+
+            <a href="forum/thread/{{message.thread_id}}">{{message.message}}</a>
+        </td>
+        <td>{{message.writer}}</td>
+        <td>{{message.date}}</td>
+
+    </tr>
+
+{%endfor%}
+{%endif%}
+  {% endblock %}
+</html>

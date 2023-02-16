@@ -153,3 +153,18 @@ def postthread(id):
         text(sql), {"writer": writer, "message": message, "thread_id": thread_id[0][0]})
     db.session.commit()
     return redirect(request.referrer)
+
+
+@app.route("/searchpage")
+def searchpage():
+   return render_template("search.html")
+
+@app.route("/search", methods=["GET"])
+def search(): 
+    searchword = request.args.get("searchword")
+    sql = text("""SELECT id, writer, message, date, thread_id
+    FROM messages WHERE message LIKE :searchword""")
+    result = db.session.execute(sql, {"searchword":"%"+searchword+"%"})
+    messages = result.fetchall()
+
+    return render_template("search.html", messages=messages)
