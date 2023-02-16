@@ -166,5 +166,9 @@ def search():
     FROM messages WHERE message LIKE :searchword""")
     result = db.session.execute(sql, {"searchword":"%"+searchword+"%"})
     messages = result.fetchall()
+    sql = text("""SELECT id, title, owner, forum_id
+    FROM threads WHERE title LIKE :searchword""")
+    result = db.session.execute(sql, {"searchword":"%"+searchword+"%"})
+    threads = result.fetchall()
 
-    return render_template("search.html", messages=messages)
+    return render_template("search.html", messages=messages, threads=threads)
