@@ -1,9 +1,9 @@
 from app import app
-from flask import redirect, render_template, request, session, flash
+from flask import redirect, render_template, request, session, flash, abort
 
 from db import db
 from sqlalchemy.sql import text
-
+import secrets
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
@@ -75,6 +75,7 @@ def login():
         return redirect("/loginpage")
 
     session["username"] = username
+    session["csrf_token"] = secrets.token_hex(16)
     return redirect("/")
 
 
@@ -109,6 +110,7 @@ def signup():
     db.session.commit()
 
     session["username"] = username
+    session["csrf_token"] = secrets.token_hex(16)
     return redirect("/")
 
 
@@ -116,6 +118,9 @@ def signup():
 def postmessage(id):
     message = request.form["message"]
     writer = session["username"]
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+
     thread_id = id
     sql = "INSERT INTO messages (writer, message, thread_id) VALUES (:writer, :message, :thread_id)"
 
@@ -130,6 +135,9 @@ def postthread(id):
     title = request.form["title"]
     message = request.form["message"]
     writer = session["username"]
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+
     sql = "INSERT INTO threads (title, owner, forum_id) VALUES (:title, :owner, :forum_id)"
     db.session.execute(
         text(sql), {"title": title, "owner": writer, "forum_id": id})

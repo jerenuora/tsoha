@@ -37,6 +37,7 @@
         <input class="titlearea" type="text" name="title">
         <textarea class="textarea" type="text" name="message"></textarea>
         <input type="submit" value="Lähetä">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 </div>
 {%endif%}
