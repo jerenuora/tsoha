@@ -163,11 +163,11 @@ def searchpage():
 def search(): 
     searchword = request.args.get("searchword")
     sql = text("""SELECT id, writer, message, date, thread_id
-    FROM messages WHERE message LIKE :searchword""")
+    FROM messages WHERE LOWER(message) LIKE LOWER(:searchword)""")
     result = db.session.execute(sql, {"searchword":"%"+searchword+"%"})
     messages = result.fetchall()
     sql = text("""SELECT id, title, owner, forum_id
-    FROM threads WHERE title LIKE :searchword""")
+    FROM threads WHERE LOWER(title) LIKE LOWER(:searchword)""")
     result = db.session.execute(sql, {"searchword":"%"+searchword+"%"})
     threads = result.fetchall()
 
