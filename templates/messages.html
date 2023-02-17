@@ -23,7 +23,6 @@
             {% if session.username and session.username == message.writer %}
 
             <td>  
-                <a  href="/editpage/{{message.id}}" >Muokkaa</a>
                 <form  action="/editpage/{{message.id}}" method="GET">
 
                     <input type="submit" value="Muokkaa">
