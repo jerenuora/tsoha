@@ -19,9 +19,13 @@
 
             <a href="thread/{{thread.id}}">{{thread.title}}</a>
             </td>
+            {%if messagecount[thread.id-1] %}
             <td>{{messagecount[thread.id-1][0]}}</td>
             <td>{{messagecount[thread.id-1][1]}}</td>
-
+            {%else%}
+            <td>Ei viestejä</td>
+            <td></td>
+            {%endif%}
         </tr>
 
     {%endfor%}
