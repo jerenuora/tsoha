@@ -172,3 +172,12 @@ def search():
     threads = result.fetchall()
 
     return render_template("search.html", messages=messages, threads=threads)
+
+@app.route("/delete/<int:id>", methods=["POST"])
+def delete(id):
+    
+    sql = text("DELETE FROM messages WHERE id=:id")
+    db.session.execute(sql, {"id":id})
+    
+    db.session.commit()
+    return redirect(request.referrer)
