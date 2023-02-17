@@ -14,6 +14,7 @@
         <textarea class="textarea" type="text" name="message" >{{message.message}}</textarea>
         <input type="submit" value="Lähetä">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <input type="hidden" name="redir" value="/forum/thread/{{message.thread_id}}" />
     </form>
 </div>
   </body>

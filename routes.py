@@ -186,10 +186,18 @@ def delete(id):
 
 @app.route("/editpage/<int:id>", methods=["GET"])
 def editpage(id):
-    print(id)
     sql = """SELECT id, writer, message, date, thread_id
     FROM messages WHERE id=:id"""
     result = db.session.execute(text(sql), {"id": id})
     message = result.fetchall()
-    print(message)
     return render_template("editpage.html", message=message)
+
+@app.route("/edit/<int:id>", methods=["POST"])
+def edit(id):
+    message = request.form["message"]
+
+    sql = text("UPDATE messages SET message=:message WHERE id=:id  ")
+    db.session.execute(sql, {"id": id, "message": message})
+    db.session.commit()
+
+    return redirect(request.form.get('redir'))
