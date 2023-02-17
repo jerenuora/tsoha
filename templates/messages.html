@@ -25,8 +25,18 @@
             <td>{{message.date}}</td>
             {% if session.username and session.username == message.writer %}
 
-            <td><a href="edit/{{message.id}}">Muokkaa</a> <a href="delete/{{message.id}}">Poista</a> </td>
-            {%endif%}
+            <td>    <form  action="/edit/{{message.id}}" method="POST">
+
+                <input type="submit" value="Muokkaa">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+            </form>
+               <form  action="/delete/{{message.id}}" method="POST">
+
+                <input type="submit" value="Poista">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+                {%endif%}
 
         </tr>
 
