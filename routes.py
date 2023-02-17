@@ -13,17 +13,28 @@ def index():
     result = db.session.execute(text(sql))
     forums = result.fetchall()
 
-    sql = "SELECT count(title) FROM threads GROUP BY forum_id ORDER BY forum_id"
+    sql = """SELECT f.name, count(t. title) FROM threads T
+                LEFT JOIN  forums F ON t.forum_id = f.id GROUP BY f.name"""
     result = db.session.execute(text(sql))
     threadcount = result.fetchall()
 
-    sql = """SELECT count(M.message), max(date) FROM messages M, threads T, forums F
-                WHERE M.thread_id = T.id and T.forum_id = F.id GROUP BY F.id ORDER BY F.id"""
+    threaddata = {}
+    for item in threadcount:
+        threaddata[item[0]] = item[1:]
+    print(threaddata)
+    sql = """SELECT F.name, count(M.message), max(M.date) FROM  threads T
+                LEFT JOIN messages M  ON M.thread_id = T.id 
+                LEFT JOIN forums f ON t.forum_id = F.id GROUP BY F.id """
     result = db.session.execute(text(sql))
     messagecount = result.fetchall()
+    print(messagecount)
 
+    messagedata = {}
+    for item in messagecount:
+        messagedata[item[0]] = item[1:]
+    print(messagedata)
     return render_template("index.html", forums=forums,
-                           threadcount=threadcount, messagecount=messagecount)
+                           threadcount=threaddata, messagecount=messagedata)
 
 
 @app.route("/forum/<int:id>")

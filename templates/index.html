@@ -15,21 +15,19 @@
 
         </tr>
         <tr>
+
             {% for forum in forums %}
             <td>
 
             <a href="forum/{{forum.id}}">{{forum.name}}</a>
             </td>
-            {%if threadcount[forum.id-1] %}
-
-            <td>{{threadcount[forum.id-1][0]}}</td>
-            <td>{{messagecount[forum.id-1][0]}}</td>
-            <td>{{messagecount[forum.id-1][1]}}</td>
-            {%else%}
-            <td>Ei ketjuja</td>
-            <td>0</td>
+            {% if threadcount[forum.name]|length == 0 %} 
+            <td> Ei ketjuja </td>
+            {%else %}
+            <td>{{threadcount[forum.name][0]}}</td>
+            <td>{{messagecount[forum.name][0]}}</td>
+            <td>{{messagecount[forum.name][1]}}</td>
             {%endif%}
-
         </tr>
 
     {%endfor%}
