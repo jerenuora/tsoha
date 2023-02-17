@@ -6,7 +6,7 @@
 
 {% for message in message %}
 
-<div class="messageform">
+<div class="form">
     <form  action="/edit/{{message.id}}" method="POST">
         Muokkaa:
         <br>
@@ -22,7 +22,7 @@
   {%endfor%}
   {% for thread in thread %}
 
-  <div class="threadform">
+  <div class="form">
       <form  action="/edit/{{thread.id}}" method="POST">
           Muokkaa:
           <br>
