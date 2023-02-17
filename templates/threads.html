@@ -21,6 +21,24 @@
             </td>
             <td>{{messagecount[thread.id-1][0]}}</td>
             <td>{{messagecount[thread.id-1][1]}}</td>
+            
+            {% if session.username and session.username == thread.owner %}
+
+            <td>  
+                <form  action="/editpage/{{thread.id}}" method="GET">
+
+                    <input type="submit" value="Muokkaa">
+                    <input type="hidden" name="dest" value="thread" />
+                </form>
+    
+               <form  action="/delete/{{thread.id}}" method="POST">
+
+                <input type="submit" value="Poista">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            </form>
+            {%endif%}
+            </td>
+
         </tr>
 
     {%endfor%}

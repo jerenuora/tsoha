@@ -28,7 +28,7 @@ def index():
 
 @app.route("/forum/<int:id>")
 def thread_view(id):
-    sql = "SELECT id, title, forum_id FROM threads WHERE forum_id=:id"
+    sql = "SELECT id, title, owner,  forum_id FROM threads WHERE forum_id=:id"
     result = db.session.execute(text(sql), {"id": id})
     threads = result.fetchall()
     sql = """SELECT count(M.message), max(date)  FROM messages M, threads T
@@ -187,20 +187,42 @@ def delete(id):
 
 @app.route("/editpage/<int:id>", methods=["GET"])
 def editpage(id):
-    sql = """SELECT id, writer, message, date, thread_id
-    FROM messages WHERE id=:id"""
-    result = db.session.execute(text(sql), {"id": id})
-    message = result.fetchall()
-    return render_template("editpage.html", message=message)
+    destination = request.args.get('dest')
+    print("destination,", destination)
+    if destination == "message":
+
+        sql = """SELECT id, writer, message, date, thread_id
+        FROM messages WHERE id=:id"""
+        result = db.session.execute(text(sql), {"id": id})
+        message = result.fetchall()
+        return render_template("editpage.html", message=message)
+
+    elif destination == "thread":
+        sql = """SELECT id, title, owner, forum_id
+        FROM threads WHERE id=:id"""
+        result = db.session.execute(text(sql), {"id": id})
+        thread = result.fetchall()
+
+        return render_template("editpage.html", thread=thread)
 
 @app.route("/edit/<int:id>", methods=["POST"])
 def edit(id):
-    message = request.form["message"]
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
+    destination = request.form.get('dest')
+    if destination == "message":
+        message = request.form["message"]
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
 
-    sql = text("UPDATE messages SET message=:message WHERE id=:id  ")
-    db.session.execute(sql, {"id": id, "message": message})
+        sql = text("UPDATE messages SET message=:message WHERE id=:id  ")
+        db.session.execute(sql, {"id": id, "message": message})
+    elif destination == "thread":
+        title = request.form["thread"]
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+
+        sql = text("UPDATE threads SET title=:title WHERE id=:id  ")
+        db.session.execute(sql, {"id": id, "title": title})
+
     db.session.commit()
 
     return redirect(request.form.get('redir'))

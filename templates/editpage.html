@@ -4,7 +4,6 @@
   {% block content %}
   <body>
 
-</table>
 {% for message in message %}
 
 <div class="messageform">
@@ -15,10 +14,28 @@
         <input type="submit" value="Lähetä">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <input type="hidden" name="redir" value="/forum/thread/{{message.thread_id}}" />
+        <input type="hidden" name="dest" value="message" />
+
     </form>
 </div>
   </body>
   {%endfor%}
+  {% for thread in thread %}
 
+  <div class="threadform">
+      <form  action="/edit/{{thread.id}}" method="POST">
+          Muokkaa:
+          <br>
+          <textarea class="textarea" type="text" name="thread" >{{thread.thread}}</textarea>
+          <input type="submit" value="Lähetä">
+          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+          <input type="hidden" name="redir" value="/forum/{{thread.forum_id}}" />
+          <input type="hidden" name="dest" value="thread" />
+  
+      </form>
+  </div>
+    </body>
+    {%endfor%}
+  
   {% endblock %}
 </html>
