@@ -20,9 +20,15 @@
 
             <a href="forum/{{forum.id}}">{{forum.name}}</a>
             </td>
+            {%if threadcount[forum.id-1] %}
+
             <td>{{threadcount[forum.id-1][0]}}</td>
             <td>{{messagecount[forum.id-1][0]}}</td>
             <td>{{messagecount[forum.id-1][1]}}</td>
+            {%else%}
+            <td>Ei ketjuja</td>
+            <td>0</td>
+            {%endif%}
 
         </tr>
 

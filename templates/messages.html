@@ -28,14 +28,14 @@
             <td>  
                 <a  href="/editpage/{{message.id}}" >Muokkaa</a>
 
-
+            {%if messages|length > 1 %}
             </form>
                <form  action="/delete/{{message.id}}" method="POST">
 
                 <input type="submit" value="Poista">
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
-
+            {%endif%}
                 {%endif%}
 
         </tr>
