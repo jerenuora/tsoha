@@ -195,6 +195,8 @@ def editpage(id):
 @app.route("/edit/<int:id>", methods=["POST"])
 def edit(id):
     message = request.form["message"]
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
 
     sql = text("UPDATE messages SET message=:message WHERE id=:id  ")
     db.session.execute(sql, {"id": id, "message": message})
