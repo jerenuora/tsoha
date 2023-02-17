@@ -10,7 +10,9 @@
             <th>Viesti</th>
             <th>Kirjoittaja</th>
             <th>Aika</th>
-
+            {% if session.username %}
+            <th>Muokkaa</th>
+            {%endif%}
 
         </tr>
         <tr>
@@ -21,6 +23,11 @@
             </td>
             <td>{{message.writer}}</td>
             <td>{{message.date}}</td>
+            {% if session.username and session.username == message.writer %}
+
+            <td><a href="edit/{{message.id}}">Muokkaa</a> <a href="delete/{{message.id}}">Poista</a> </td>
+            {%endif%}
+
         </tr>
 
     {%endfor%}
