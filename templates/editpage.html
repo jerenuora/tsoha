@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+<html>
+  {% block content %}
+  <body>
+
+</table>
+{% for message in message %}
+
+<div class="messageform">
+    <form  action="/edit/{{message.id}}" method="POST">
+        Muokkaa:
+        <br>
+        <textarea class="textarea" type="text" name="message" >{{message.message}}</textarea>
+        <input type="submit" value="Lähetä">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
+</div>
+  </body>
+  {%endfor%}
+
+  {% endblock %}
+</html>
