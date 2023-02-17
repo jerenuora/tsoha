@@ -1,10 +1,10 @@
-from app import app
-from flask import redirect, render_template, request, session, flash, abort
-
-from db import db
-from sqlalchemy.sql import text
 import secrets
+from flask import redirect, render_template, request, session, flash, abort
+from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
+
+from app import app
+from db import db
 
 
 @app.route("/")
@@ -22,7 +22,8 @@ def index():
     result = db.session.execute(text(sql))
     messagecount = result.fetchall()
 
-    return render_template("index.html", forums=forums, threadcount=threadcount, messagecount=messagecount)
+    return render_template("index.html", forums=forums,
+                           threadcount=threadcount, messagecount=messagecount)
 
 
 @app.route("/forum/<int:id>")
@@ -95,7 +96,7 @@ def signup():
     username = request.form["username"]
     password = request.form["password"]
     password_confirmation = request.form["password_confirmation"]
-    
+
     if not username or not password:
         flash("Täytä kaikki kentät")
         return redirect("/signuppage")
@@ -157,10 +158,10 @@ def postthread(id):
 
 @app.route("/searchpage")
 def searchpage():
-   return render_template("search.html")
+    return render_template("search.html")
 
 @app.route("/search", methods=["GET"])
-def search(): 
+def search():
     searchword = request.args.get("searchword")
     sql = text("""SELECT id, writer, message, date, thread_id
     FROM messages WHERE LOWER(message) LIKE LOWER(:searchword)""")
@@ -180,7 +181,7 @@ def delete(id):
 
     sql = text("DELETE FROM messages WHERE id=:id")
     db.session.execute(sql, {"id":id})
-    
+
     db.session.commit()
     return redirect(request.referrer)
 
