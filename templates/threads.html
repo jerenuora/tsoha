@@ -35,6 +35,8 @@
 
                 <input type="submit" value="Poista">
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                <input type="hidden" name="dest" value="thread" />
+
             </form>
             {%endif%}
             </td>

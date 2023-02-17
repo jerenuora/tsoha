@@ -24,6 +24,11 @@
 
             <td>  
                 <a  href="/editpage/{{message.id}}" >Muokkaa</a>
+                <form  action="/editpage/{{message.id}}" method="GET">
+
+                    <input type="submit" value="Muokkaa">
+                    <input type="hidden" name="dest" value="message" />
+                </form>
 
             {%if messages|length > 1 %}
             </form>
@@ -31,6 +36,7 @@
 
                 <input type="submit" value="Poista">
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                <input type="hidden" name="dest" value="message" />
             </form>
             {%endif%}
                 {%endif%}
