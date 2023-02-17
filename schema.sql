@@ -1,12 +1,12 @@
 CREATE TABLE forums (
     id SERIAL PRIMARY KEY, 
-    name TEXT
+    name TEXT NOT NULL
 );
 
 CREATE TABLE threads (
     id SERIAL PRIMARY KEY, 
-    title TEXT, 
-    owner TEXT,
+    title TEXT NOT NULL,
+    owner TEXT NOT NULL,
     forum_id INTEGER REFERENCES forums ON DELETE CASCADE
 );
 
