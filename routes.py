@@ -175,7 +175,9 @@ def search():
 
 @app.route("/delete/<int:id>", methods=["POST"])
 def delete(id):
-    
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+
     sql = text("DELETE FROM messages WHERE id=:id")
     db.session.execute(sql, {"id":id})
     
