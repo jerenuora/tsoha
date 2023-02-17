@@ -19,8 +19,8 @@
 
             <a href="thread/{{thread.id}}">{{thread.title}}</a>
             </td>
-            <td>{{messagecount[thread.id-1][0]}}</td>
-            <td>{{messagecount[thread.id-1][1]}}</td>
+            <td>{{messagecount[thread.title][0]}}</td>
+            <td>{{messagecount[thread.title][1]}}</td>
             
             {% if session.username and session.username == thread.owner %}
 

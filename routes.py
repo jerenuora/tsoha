@@ -31,12 +31,16 @@ def thread_view(id):
     sql = "SELECT id, title, owner,  forum_id FROM threads WHERE forum_id=:id"
     result = db.session.execute(text(sql), {"id": id})
     threads = result.fetchall()
-    sql = """SELECT count(M.message), max(date)  FROM messages M, threads T
+    sql = """SELECT T.title, count(M.message), max(date)  FROM messages M, threads T
             WHERE M.thread_id = T.id GROUP BY T.id ORDER BY T.id """
     result = db.session.execute(text(sql))
     messagecount = result.fetchall()
 
-    return render_template("threads.html", threads=threads, forum_id=id, messagecount=messagecount)
+    messagedata = {}
+    for item in messagecount:
+        messagedata[item[0]] = item[1:]
+
+    return render_template("threads.html", threads=threads, forum_id=id, messagecount=messagedata)
 
 
 @app.route("/forum/thread/<int:id>")
@@ -176,11 +180,18 @@ def search():
 
 @app.route("/delete/<int:id>", methods=["POST"])
 def delete(id):
+    destination = request.form.get('dest')
+
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
-
-    sql = text("DELETE FROM messages WHERE id=:id")
-    db.session.execute(sql, {"id":id})
+    if destination == "message":
+        sql = text("DELETE FROM messages WHERE id=:id")
+        db.session.execute(sql, {"id":id})
+    elif destination == "thread":
+        sql = text("DELETE FROM threads WHERE id=:id")
+        db.session.execute(sql, {"id":id})
+        sql = text("DELETE FROM messages WHERE thread_id=:id")
+        db.session.execute(sql, {"id":id})
 
     db.session.commit()
     return redirect(request.referrer)
