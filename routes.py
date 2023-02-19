@@ -122,15 +122,14 @@ def signup():
     file = request.files["file"]
     name = file.filename
     if not name:
-        with open("static/defaultavatar.jpg", "rb") as image:
+        with open("static/defaultavatar.jpg", "rb") as img:
 
-            file = image.read()
+            file = img.read()
             data = bytearray(file)
     else:
-        if not name.endswith((".jpg", ".JPG", ".jpeg")):
+        if not name.endswith((".jpg", ".JPG", ".jpeg",".JPEG")):
             return "Vain .jpg sallittu"
         data = file.read()
-    print(data)
     if len(data) > 100*1024:
         flash("Liian iso tiedosto")
         return redirect("/signuppage")
