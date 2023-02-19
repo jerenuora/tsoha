@@ -111,6 +111,15 @@ def signup():
     username = request.form["username"]
     password = request.form["password"]
     password_confirmation = request.form["password_confirmation"]
+    file = request.files["file"]
+    name = file.filename
+    
+    if not name.endswith((".jpg", ".JPG", ".jpeg")):
+        return "Vain .jpg sallittu"
+    data = file.read()
+    if len(data) > 100*1024:
+        flash("Liian iso tiedosto")
+        return redirect("/signuppage")
 
     if not username or not password:
         flash("Täytä kaikki kentät")
@@ -123,6 +132,13 @@ def signup():
     sql = "INSERT INTO users (username, password) VALUES (:username, :password)"
     db.session.execute(
         text(sql), {"username": username, "password": hash_value})
+    sql = "SELECT id FROM users WHERE username=:username"
+    result = db.session.execute(text(sql), {"username": username})
+    id = result.fetchone()
+
+    sql = "INSERT INTO avatar (name,data,user_id) VALUES (:name,:data,:user_id)"
+    db.session.execute(text(sql), {"name":name, "data":data, "user_id":id[0]})
+
     db.session.commit()
 
     session["username"] = username
