@@ -22,8 +22,42 @@ td {
   padding: 1em;
   border: 1px solid black;
   border-radius: 5px;
+}
+
+.messagetable {
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
+}
+
+.messageheader{
+  display: flex;
+  padding: 1%;
+  margin-top: 5px;
+  background-color:azure;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 5px;
 
 }
+
+.messagearea{
+  display: flex;
+  flex-direction: row;
+  padding: 1em;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+}
+
+.deleteedit{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+
+}
+
 
 .alert {
   color: red;

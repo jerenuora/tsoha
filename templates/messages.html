@@ -5,46 +5,47 @@
 
   <body>
     <p>Viestejä: </p>
-    <table>
-        <tr>
-            <th>Viesti</th>
-            <th>Kirjoittaja</th>
-            <th>Aika</th>
+    <div class="messagetable">
+        {% for message in messages %}
 
-        </tr>
-        <tr>
-            {% for message in messages %}
-            <td>
-
-            {{message.message}}
-            </td>
-            <td>{{message.writer}}</td>
-            <td>{{message.date}}</td>
+        <div class="messageheader">
+            <div >{{message.writer}}</div>
+            <div >{{message.date}}</div>
             {% if session.username and session.username == message.writer %}
 
-            <td>  
-                <form  action="/editpage/{{message.id}}" method="GET">
+        </div>
+        <div class="messagearea">
+            <div class="messagetext">
 
+            {{message.message}}
+            </div>
+        </div>
+        <div class="deleteedit">
+            <div>
+                <form  action="/editpage/{{message.id}}" method="GET">
                     <input type="submit" value="Muokkaa">
                     <input type="hidden" name="dest" value="message" />
                 </form>
 
             {%if messages|length > 1 %}
             </form>
-               <form  action="/delete/{{message.id}}" method="POST">
+        </div>
 
-                <input type="submit" value="Poista">
-                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                <input type="hidden" name="dest" value="message" />
-            </form>
-            {%endif%}
+            <div>
+                <form  action="/delete/{{message.id}}" method="POST">
+
+                    <input type="submit" value="Poista">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    <input type="hidden" name="dest" value="message" />
+                </form>
                 {%endif%}
+                    {%endif%}
+            </div>
+        </div>
 
-        </tr>
+        {%endfor%}
+    </div>
 
-    {%endfor%}
-
-</table>
 {% if session.username %}
 
 <div class="form">
