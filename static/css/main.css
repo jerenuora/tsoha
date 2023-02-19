@@ -23,9 +23,20 @@ td {
   border: 1px solid black;
   border-radius: 5px;
 }
+.avatarimg{
+  border-radius: 20px;
+  width: 80px;
+  height: 80px
+}
+.messagecontainer {
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
 
+}
 .messagetable {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   padding: 2px;
 }

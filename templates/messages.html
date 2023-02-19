@@ -5,13 +5,15 @@
 
   <body>
     <p>Viestejä: </p>
+    {% for message in messages %}
+
+    <div class="messagecontainer">
+    <img class="avatarimg" src="http://localhost:5000/image/{{message.writer}}" alt="User avatar" >
     <div class="messagetable">
-        {% for message in messages %}
 
         <div class="messageheader">
             <div >{{message.writer}}</div>
             <div >{{message.date}}</div>
-
         </div>
         <div class="messagearea">
             <div class="messagetext">
@@ -28,9 +30,8 @@
                     <input type="hidden" name="dest" value="message" />
                 </form>
 
-            {%if messages|length > 1 %}
-            </form>
         </div>
+        {%if messages|length > 1 %}
 
             <div>
                 <form  action="/delete/{{message.id}}" method="POST">
@@ -45,6 +46,7 @@
         </div>
 
         {%endfor%}
+    </div>
     </div>
 
 {% if session.username %}
