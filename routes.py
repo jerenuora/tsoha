@@ -113,10 +113,16 @@ def signup():
     password_confirmation = request.form["password_confirmation"]
     file = request.files["file"]
     name = file.filename
-    
-    if not name.endswith((".jpg", ".JPG", ".jpeg")):
-        return "Vain .jpg sallittu"
-    data = file.read()
+    if not name:
+        with open("static/defaultavatar.jpg", "rb") as image:
+
+            file = image.read()
+            data = bytearray(file)
+    else:
+        if not name.endswith((".jpg", ".JPG", ".jpeg")):
+            return "Vain .jpg sallittu"
+        data = file.read()
+    print(data)
     if len(data) > 100*1024:
         flash("Liian iso tiedosto")
         return redirect("/signuppage")
