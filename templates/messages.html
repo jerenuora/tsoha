@@ -11,7 +11,6 @@
         <div class="messageheader">
             <div >{{message.writer}}</div>
             <div >{{message.date}}</div>
-            {% if session.username and session.username == message.writer %}
 
         </div>
         <div class="messagearea">
@@ -20,6 +19,8 @@
             {{message.message}}
             </div>
         </div>
+        {% if session.username and session.username == message.writer %}
+
         <div class="deleteedit">
             <div>
                 <form  action="/editpage/{{message.id}}" method="GET">
