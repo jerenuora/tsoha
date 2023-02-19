@@ -24,3 +24,10 @@ CREATE TABLE users (
     password TEXT NOT NULL,
     admin BOOLEAN
 );
+
+CREATE TABLE avatar (
+    id SERIAL PRIMARY KEY, 
+    name TEXT, 
+    data BYTEA,
+    user_id INTEGER REFERENCES users
+    );
