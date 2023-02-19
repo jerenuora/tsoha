@@ -1,5 +1,5 @@
 import secrets
-from flask import redirect, render_template, request, session, flash, abort
+from flask import redirect, render_template, request, session, flash, abort, make_response
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -62,6 +62,14 @@ def messages_view(id):
     messages = result.fetchall()
     return render_template("messages.html", messages=messages, thread_id=id)
 
+@app.route("/image/<string:username>")
+def image(username):
+    sql = "SELECT data FROM avatar A, users U WHERE A.user_id=U.id AND U.username=:username"
+    result = db.session.execute(text(sql), {"username":username})
+    data = result.fetchone()[0]
+    response = make_response(bytes(data))
+    response.headers.set("Content-Type", "image/jpeg")
+    return response
 
 @app.route("/loginpage")
 def loginpage():
