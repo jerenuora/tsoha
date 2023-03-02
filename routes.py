@@ -23,7 +23,7 @@ def index():
         threaddata[item[0]] = item[1:]
 
     sql = """SELECT F.name, count(M.message), max(M.date) FROM  threads T
-                LEFT JOIN messages M  ON M.thread_id = T.id 
+                LEFT JOIN messages M  ON M.thread_id = T.id
                 LEFT JOIN forums f ON t.forum_id = F.id GROUP BY F.id """
     result = db.session.execute(text(sql))
     messagecount = result.fetchall()
@@ -41,7 +41,7 @@ def thread_view(id):
     sql = "SELECT id, title, owner,  forum_id FROM threads WHERE forum_id=:id"
     result = db.session.execute(text(sql), {"id": id})
     threads = result.fetchall()
-    sql = """SELECT T.title, count(M.message), max(date)  
+    sql = """SELECT T.title, count(M.message), max(date)
             FROM messages M, threads T
             WHERE M.thread_id = T.id GROUP BY T.id ORDER BY T.id """
     result = db.session.execute(text(sql))
@@ -65,7 +65,7 @@ def messages_view(id):
 
 @app.route("/image/<string:username>")
 def image(username):
-    sql = """SELECT data FROM avatar A, users U 
+    sql = """SELECT data FROM avatar A, users U
                 WHERE A.user_id=U.id AND U.username=:username"""
     result = db.session.execute(text(sql), {"username":username})
     data = result.fetchone()[0]
@@ -82,7 +82,7 @@ def loginpage():
 def login():
     username = request.form["username"]
     password = request.form["password"]
-    
+
     if not username or not password:
         flash("Syotä kirjautumistiedot")
         return redirect("/loginpage")
@@ -144,7 +144,7 @@ def signup():
 
     hash_value = generate_password_hash(password)
     try:
-        sql = """INSERT INTO users (username, password) 
+        sql = """INSERT INTO users (username, password)
                     VALUES (:username, :password)"""
         db.session.execute(
             text(sql), {
@@ -158,7 +158,7 @@ def signup():
     result = db.session.execute(text(sql), {"username": username})
     id = result.fetchone()
 
-    sql = """INSERT INTO avatar (name,data,user_id) 
+    sql = """INSERT INTO avatar (name,data,user_id)
                 VALUES (:name,:data,:user_id)"""
     db.session.execute(text(sql), {
         "name":name,
@@ -211,7 +211,7 @@ def postthread(id):
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
 
-    sql = """INSERT INTO threads (title, owner, forum_id) 
+    sql = """INSERT INTO threads (title, owner, forum_id)
                 VALUES (:title, :owner, :forum_id)"""
     db.session.execute(
         text(sql), {"title": title, "owner": writer, "forum_id": id})
