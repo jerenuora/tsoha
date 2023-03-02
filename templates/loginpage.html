@@ -4,18 +4,17 @@
   {% block content %}
 
   <body>
-    {% for message in get_flashed_messages()  %}
-    <div class="alert" >
-      {{message}}
-    </div>
+    {% for message in get_flashed_messages() %}
+    <div class="alert">{{message}}</div>
     {% endfor %}
 
     <form action="/login" method="POST">
-    <p>Käyttäjänimi: </p>
-    <input type="text" name="username">
-    <p>Salasana: </p>
-    <input type="password" name="password">
-    <input type="submit" value="Kirjaudu">
-    </body>
+      <p>Käyttäjänimi:</p>
+      <input type="text" name="username" />
+      <p>Salasana:</p>
+      <input type="password" name="password" />
+      <input type="submit" value="Kirjaudu" />
+    </form>
+  </body>
   {% endblock %}
 </html>

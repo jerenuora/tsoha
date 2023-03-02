@@ -4,68 +4,64 @@
   {% block content %}
 
   <body>
-    <p>Ketjuja: </p>
+    <p>Ketjuja:</p>
     <table>
-        <tr>
-            <th>Nimi</th>
-            <th>Viestejä</th>
-            <th>Viimeisin viesti</th>
+      <tr>
+        <th>Nimi</th>
+        <th>Viestejä</th>
+        <th>Viimeisin viesti</th>
+      </tr>
+      <tr>
+        {% for thread in threads %}
+        <td>
+          <a href="thread/{{thread.id}}">{{thread.title}}</a>
+        </td>
+        <td>{{messagecount[thread.title][0]}}</td>
+        <td>{{messagecount[thread.title][1]}}</td>
 
+        {% if session.username and session.username == thread.owner %}
 
-        </tr>
-        <tr>
-            {% for thread in threads %}
-            <td>
+        <td>
+          <form action="/editpage/{{thread.id}}" method="GET">
+            <input type="submit" value="Muokkaa" />
+            <input type="hidden" name="dest" value="thread" />
+          </form>
 
-            <a href="thread/{{thread.id}}">{{thread.title}}</a>
-            </td>
-            <td>{{messagecount[thread.title][0]}}</td>
-            <td>{{messagecount[thread.title][1]}}</td>
-            
-            {% if session.username and session.username == thread.owner %}
+          <form action="/delete/{{thread.id}}" method="POST">
+            <input type="submit" value="Poista" />
+            <input
+              type="hidden"
+              name="csrf_token"
+              value="{{ session.csrf_token }}"
+            />
+            <input type="hidden" name="dest" value="thread" />
+          </form>
+          {%endif%}
+        </td>
+      </tr>
 
-            <td>  
-                <form  action="/editpage/{{thread.id}}" method="GET">
+      {%endfor%}
+    </table>
+    {% if session.username %}
+    <div class="form">
+      {% for message in get_flashed_messages() %}
+      <div class="alert">{{message}}</div>
+      {%endfor%}
 
-                    <input type="submit" value="Muokkaa">
-                    <input type="hidden" name="dest" value="thread" />
-                </form>
-    
-               <form  action="/delete/{{thread.id}}" method="POST">
-
-                <input type="submit" value="Poista">
-                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                <input type="hidden" name="dest" value="thread" />
-
-            </form>
-            {%endif%}
-            </td>
-
-        </tr>
-
-    {%endfor%}
-
-</table>
-{% if session.username %}
-<div class="form">
-    {% for message in get_flashed_messages()  %}
-<div class="alert" >
-  {{message}}
-</div>
-{%endfor%}
-
-    <form  action="/postthread/{{forum_id}}" method="POST">
-        
+      <form action="/postthread/{{forum_id}}" method="POST">
         Lisää ketju:
-        <br>
-        <input class="titlearea" type="text" name="title">
+        <br />
+        <input class="titlearea" type="text" name="title" />
         <textarea class="textarea" type="text" name="message"></textarea>
-        <input type="submit" value="Lähetä">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
-</div>
-{%endif%}
-
+        <input type="submit" value="Lähetä" />
+        <input
+          type="hidden"
+          name="csrf_token"
+          value="{{ session.csrf_token }}"
+        />
+      </form>
+    </div>
+    {%endif%}
   </body>
   {% endblock %}
 </html>

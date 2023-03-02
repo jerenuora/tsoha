@@ -4,35 +4,30 @@
   {% block content %}
 
   <body>
-    <p>Tässä foorumeita: </p>
+    <p>Tässä foorumeita:</p>
     <table>
-        <tr>
-            <th>Foorumi</th>
-            <th>Ketjuja</th>
-            <th>Viestejä</th>
-            <th>Viimeisin viesti</th>
+      <tr>
+        <th>Foorumi</th>
+        <th>Ketjuja</th>
+        <th>Viestejä</th>
+        <th>Viimeisin viesti</th>
+      </tr>
+      <tr>
+        {% for forum in forums %}
+        <td>
+          <a href="forum/{{forum.id}}">{{forum.name}}</a>
+        </td>
+        {% if threadcount[forum.name]|length == 0 %}
+        <td>Ei ketjuja</td>
+        {%else %}
+        <td>{{threadcount[forum.name][0]}}</td>
+        <td>{{messagecount[forum.name][0]}}</td>
+        <td>{{messagecount[forum.name][1]}}</td>
+        {%endif%}
+      </tr>
 
-
-        </tr>
-        <tr>
-
-            {% for forum in forums %}
-            <td>
-
-            <a href="forum/{{forum.id}}">{{forum.name}}</a>
-            </td>
-            {% if threadcount[forum.name]|length == 0 %} 
-            <td> Ei ketjuja </td>
-            {%else %}
-            <td>{{threadcount[forum.name][0]}}</td>
-            <td>{{messagecount[forum.name][0]}}</td>
-            <td>{{messagecount[forum.name][1]}}</td>
-            {%endif%}
-        </tr>
-
-    {%endfor%}
-
-</table>
+      {%endfor%}
+    </table>
   </body>
   {% endblock %}
 </html>

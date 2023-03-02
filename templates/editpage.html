@@ -3,39 +3,48 @@
 <html>
   {% block content %}
   <body>
+    {% for message in message %}
 
-{% for message in message %}
-
-<div class="form">
-    <form  action="/edit/{{message.id}}" method="POST">
+    <div class="form">
+      <form action="/edit/{{message.id}}" method="POST">
         Muokkaa:
-        <br>
-        <textarea class="textarea" type="text" name="message" >{{message.message}}</textarea>
-        <input type="submit" value="Lähetä">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        <input type="hidden" name="redir" value="/forum/thread/{{message.thread_id}}" />
+        <br />
+        <textarea class="textarea" type="text" name="message">
+{{message.message}}</textarea
+        >
+        <input type="submit" value="Lähetä" />
+        <input
+          type="hidden"
+          name="csrf_token"
+          value="{{ session.csrf_token }}"
+        />
+        <input
+          type="hidden"
+          name="redir"
+          value="/forum/thread/{{message.thread_id}}"
+        />
         <input type="hidden" name="dest" value="message" />
-
-    </form>
-</div>
-  </body>
-  {%endfor%}
-  {% for thread in thread %}
-
-  <div class="form">
-      <form  action="/edit/{{thread.id}}" method="POST">
-          Muokkaa:
-          <br>
-          <textarea class="textarea" type="text" name="thread" >{{thread.thread}}</textarea>
-          <input type="submit" value="Lähetä">
-          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-          <input type="hidden" name="redir" value="/forum/{{thread.forum_id}}" />
-          <input type="hidden" name="dest" value="thread" />
-  
       </form>
-  </div>
-    </body>
-    {%endfor%}
-  
-  {% endblock %}
+    </div>
+    {%endfor%} {% for thread in thread %}
+
+    <div class="form">
+      <form action="/edit/{{thread.id}}" method="POST">
+        Muokkaa:
+        <br />
+        <textarea class="textarea" type="text" name="thread">
+{{thread.thread}}</textarea
+        >
+        <input type="submit" value="Lähetä" />
+        <input
+          type="hidden"
+          name="csrf_token"
+          value="{{ session.csrf_token }}"
+        />
+        <input type="hidden" name="redir" value="/forum/{{thread.forum_id}}" />
+        <input type="hidden" name="dest" value="thread" />
+      </form>
+    </div>
+  </body>
+  {%endfor%} {% endblock %}
 </html>

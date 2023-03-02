@@ -4,59 +4,48 @@
   {% block content %}
 
   <body>
-    {% for message in get_flashed_messages()  %}
-    <div class="alert" >
-      {{message}}
-    </div>
+    {% for message in get_flashed_messages() %}
+    <div class="alert">{{message}}</div>
     {% endfor %}
 
     <form action="/search" method="GET">
-    <p>Hakusana: </p>
-    <input type="text" name="searchword">
-    <input type="submit" value="Etsi">
-    </body>
-</form>
-{%if messages%}
-<table>
-    <tr>
+      <p>Hakusana:</p>
+      <input type="text" name="searchword" />
+      <input type="submit" value="Etsi" />
+    </form>
+    {%if messages%}
+    <table>
+      <tr>
         <th>Viesti</th>
         <th>Kirjoittaja</th>
         <th>Aika</th>
-    </tr>
-    <tr>
+      </tr>
+      <tr>
         {% for message in messages %}
         <td>
-
-            <a href="forum/thread/{{message.thread_id}}">{{message.message}}</a>
+          <a href="forum/thread/{{message.thread_id}}">{{message.message}}</a>
         </td>
         <td>{{message.writer}}</td>
         <td>{{message.date}}</td>
+      </tr>
+    </table>
+    {%endfor%} {%endif%} {%if threads%}
 
-    </tr>
-
-{%endfor%}
-{%endif%}
-
-{%if threads%}
-
-<table>
-    <tr>
+    <table>
+      <tr>
         <th>Ketju</th>
         <th>Aloittaja</th>
-    </tr>
-    <tr>
+      </tr>
+      <tr>
         {% for thread in threads %}
         <td>
-
-            <a href="forum/thread/{{thread.id}}">{{thread.title}}</a>
+          <a href="forum/thread/{{thread.id}}">{{thread.title}}</a>
         </td>
         <td>{{thread.owner}}</td>
-
-
-    </tr>
-
-{%endfor%}
-{%endif%}
+      </tr>
+    </table>
+    {%endfor%} {%endif%}
+  </body>
 
   {% endblock %}
 </html>

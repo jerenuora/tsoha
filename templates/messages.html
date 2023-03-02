@@ -4,70 +4,70 @@
   {% block content %}
 
   <body>
-    <p>Viestejä: </p>
+    <p>Viestejä:</p>
     {% for message in messages %}
 
     <div class="messagecontainer">
-    <img class="avatarimg" src="http://localhost:5000/image/{{message.writer}}" alt="User avatar" >
-    <div class="messagetable">
-
+      <img
+        class="avatarimg"
+        src="http://localhost:5000/image/{{message.writer}}"
+        alt="User avatar"
+      />
+      <div class="messagetable">
         <div class="messageheader">
-            <div >{{message.writer}}</div>
-            <div >{{message.date}}</div>
+          <div>{{message.writer}}</div>
+          <div>{{message.date}}</div>
         </div>
         <div class="messagearea">
-            <div class="messagetext">
-
-            {{message.message}}
-            </div>
+          <div class="messagetext">{{message.message}}</div>
         </div>
         {% if session.username and session.username == message.writer %}
 
         <div class="deleteedit">
-            <div>
-                <form  action="/editpage/{{message.id}}" method="GET">
-                    <input type="submit" value="Muokkaa">
-                    <input type="hidden" name="dest" value="message" />
-                </form>
+          <div>
+            <form action="/editpage/{{message.id}}" method="GET">
+              <input type="submit" value="Muokkaa" />
+              <input type="hidden" name="dest" value="message" />
+            </form>
+          </div>
+          {%if messages|length > 1 %}
 
-        </div>
-        {%if messages|length > 1 %}
-
-            <div>
-                <form  action="/delete/{{message.id}}" method="POST">
-
-                    <input type="submit" value="Poista">
-                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                    <input type="hidden" name="dest" value="message" />
-                </form>
-            </div>
-            {%endif%}
-
+          <div>
+            <form action="/delete/{{message.id}}" method="POST">
+              <input type="submit" value="Poista" />
+              <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ session.csrf_token }}"
+              />
+              <input type="hidden" name="dest" value="message" />
+            </form>
+          </div>
+          {%endif%}
         </div>
         {%endif%}
-
+      </div>
     </div>
-    </div>
-    {%endfor%}
+    {%endfor%} {% if session.username %}
 
-{% if session.username %}
+    <div class="form">
+      {% for message in get_flashed_messages() %}
+      <div class="alert">{{message}}</div>
+      {%endfor%}
 
-<div class="form">
-    {% for message in get_flashed_messages()  %}
-    <div class="alert" >
-      {{message}}
-    </div>
-    {%endfor%}
-    
-    <form  action="/postmessage/{{thread_id}}" method="POST">
+      <form action="/postmessage/{{thread_id}}" method="POST">
         Kirjoita viesti:
-        <br>
+        <br />
         <textarea class="textarea" type="text" name="message"></textarea>
-        <input type="submit" value="Lähetä">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
-</div>
-{%endif%}
+        <input type="submit" value="Lähetä" />
+        <input
+          type="hidden"
+          name="csrf_token"
+          value="{{ session.csrf_token }}"
+        />
+      </form>
+    </div>
+    {%endif%}
   </body>
   {% endblock %}
 </html>

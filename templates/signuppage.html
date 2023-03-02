@@ -4,24 +4,24 @@
   {% block content %}
 
   <body>
-    {% for message in get_flashed_messages()  %}
-    <div class="alert" >
-      {{message}}
-    </div>
+    {% for message in get_flashed_messages() %}
+    <div class="alert">{{message}}</div>
     {% endfor %}
 
     <form action="/signup" method="POST" enctype="multipart/form-data">
-    <p>Käyttäjänimi: </p>
-    <input type="text" name="username">
-    <p>Salasana: </p>
-    <input type="password" name="password">
-    <p>Salasana uudelleen: </p>
-    <input type="password" name="password_confirmation">
-    <p>Lisää halutessasi profiilikuva</p>
+      <p>Käyttäjänimi:</p>
+      <input type="text" name="username" />
+      <p>Salasana:</p>
+      <input type="password" name="password" />
+      <p>Salasana uudelleen:</p>
+      <input type="password" name="password_confirmation" />
+      <p>Lisää halutessasi profiilikuva</p>
 
-    File: <input type="file" name="file">
-<p>
-    <input type="submit" value="Luo käyttäjä">
-    </body>
+      File: <input type="file" name="file" />
+      <p>
+        <input type="submit" value="Luo käyttäjä" />
+      </p>
+    </form>
+  </body>
   {% endblock %}
 </html>
