@@ -52,6 +52,12 @@
 {% if session.username %}
 
 <div class="form">
+    {% for message in get_flashed_messages()  %}
+    <div class="alert" >
+      {{message}}
+    </div>
+    {%endfor%}
+    
     <form  action="/postmessage/{{thread_id}}" method="POST">
         Kirjoita viesti:
         <br>

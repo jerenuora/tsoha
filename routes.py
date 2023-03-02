@@ -168,6 +168,10 @@ def signup():
 def postmessage(id):
     message = request.form["message"]
     writer = session["username"]
+    if len(message) < 1:
+        flash("Viestissä on oltava sisältöä")
+        return redirect(request.referrer)
+
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
 
