@@ -188,6 +188,10 @@ def postthread(id):
     if len(title) < 1:
         flash("Tyhjä otsikko ei kelpaa")
         return redirect(request.referrer)
+    if len(message) < 1:
+        flash("Viestissä on oltava sisältöä")
+        return redirect(request.referrer)
+
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
 
