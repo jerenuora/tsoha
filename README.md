@@ -1,4 +1,4 @@
-# tsoha
+# tsoha-forum
 
 ## Sovelluksen aihe on:
  
@@ -12,8 +12,6 @@ käyttäjä on peruskäyttäjä tai ylläpitäjä.
 
 ### Sovelluksen ominaisuuksia:
 
-#### Nämä toimivat jo: 
-
 - Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
 - Käyttäjä näkee sovelluksen etusivulla listan alueista sekä jokaisen 
 alueen 
@@ -26,9 +24,3 @@ aloitusviestin sisällön.
 sisältöä.
 - Käyttäjä voi myös poistaa ketjun tai viestin.
 - Käyttäjä voi tunnuksen luomisen yhteydessä valita itselleen avatarin.
-
-#### Nämä vielä toteuttamatta 
-- Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
-- Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on 
-pääsy alueelle.
-
