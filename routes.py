@@ -142,9 +142,14 @@ def signup():
         return redirect("/signuppage")
 
     hash_value = generate_password_hash(password)
-    sql = "INSERT INTO users (username, password) VALUES (:username, :password)"
-    db.session.execute(
-        text(sql), {"username": username, "password": hash_value})
+    try:
+        sql = "INSERT INTO users (username, password) VALUES (:username, :password)"
+        db.session.execute(
+            text(sql), {"username": username, "password": hash_value})
+    except :
+        flash("Jokin meni vikaan, kenties käyttäjänimi on jo varattu")
+        return redirect("/signuppage")
+
     sql = "SELECT id FROM users WHERE username=:username"
     result = db.session.execute(text(sql), {"username": username})
     id = result.fetchone()
