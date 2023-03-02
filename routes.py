@@ -149,7 +149,9 @@ def signup():
         db.session.execute(
             text(sql), {
                 "username": username,
-                "password": hash_value})
+                "password": hash_value
+                }
+            )
     except :
         flash("Jokin meni vikaan, kenties käyttäjänimi on jo varattu")
         return redirect("/signuppage")
@@ -160,10 +162,13 @@ def signup():
 
     sql = """INSERT INTO avatar (name,data,user_id)
                 VALUES (:name,:data,:user_id)"""
-    db.session.execute(text(sql), {
-        "name":name,
-        "data":data,
-        "user_id":id[0]})
+    db.session.execute(
+        text(sql), {
+            "name":name,
+            "data":data,
+            "user_id":id[0]
+            }
+        )
 
     db.session.commit()
 
@@ -191,7 +196,9 @@ def postmessage(id):
         text(sql), {
             "writer": writer,
             "message": message,
-            "thread_id": thread_id})
+            "thread_id": thread_id
+            }
+        )
     db.session.commit()
     return redirect(request.referrer)
 
@@ -228,7 +235,9 @@ def postthread(id):
         text(sql), {
             "writer": writer,
             "message": message,
-            "thread_id": thread_id[0][0]})
+            "thread_id": thread_id[0][0]
+            }
+        )
     db.session.commit()
     return redirect(request.referrer)
 
