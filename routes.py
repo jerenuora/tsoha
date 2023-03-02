@@ -236,7 +236,7 @@ def search():
 
 @app.route("/delete/<int:id>", methods=["POST"])
 def delete(id):
-    destination = request.form.get('dest')
+    destination = request.form.get("dest")
 
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
@@ -254,7 +254,7 @@ def delete(id):
 
 @app.route("/editpage/<int:id>", methods=["GET"])
 def editpage(id):
-    destination = request.args.get('dest')
+    destination = request.args.get("dest")
     print("destination,", destination)
     if destination == "message":
 
@@ -274,7 +274,7 @@ def editpage(id):
 
 @app.route("/edit/<int:id>", methods=["POST"])
 def edit(id):
-    destination = request.form.get('dest')
+    destination = request.form.get("dest")
     if destination == "message":
         message = request.form["message"]
         if session["csrf_token"] != request.form["csrf_token"]:
@@ -292,4 +292,4 @@ def edit(id):
 
     db.session.commit()
 
-    return redirect(request.form.get('redir'))
+    return redirect(request.form.get("redir"))
