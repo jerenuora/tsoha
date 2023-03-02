@@ -12,7 +12,7 @@ käyttäjä on peruskäyttäjä tai ylläpitäjä.
 
 ### Sovelluksen ominaisuuksia:
 
-#### Nämä toimivat jo ainakin osittain: 
+#### Nämä toimivat jo: 
 
 - Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
 - Käyttäjä näkee sovelluksen etusivulla listan alueista sekä jokaisen 
@@ -25,6 +25,7 @@ aloitusviestin sisällön.
 - Käyttäjä voi muokata luomansa ketjun otsikkoa sekä lähettämänsä viestin 
 sisältöä.
 - Käyttäjä voi myös poistaa ketjun tai viestin.
+- Käyttäjä voi tunnuksen luomisen yhteydessä valita itselleen avatarin.
 
 #### Nämä vielä toteuttamatta 
 - Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
