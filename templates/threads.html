@@ -47,8 +47,13 @@
 
 </table>
 {% if session.username %}
-
 <div class="form">
+    {% for message in get_flashed_messages()  %}
+<div class="alert" >
+  {{message}}
+</div>
+{%endfor%}
+
     <form  action="/postthread/{{forum_id}}" method="POST">
         
         Lisää ketju:

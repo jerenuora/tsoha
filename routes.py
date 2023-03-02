@@ -185,6 +185,9 @@ def postthread(id):
     title = request.form["title"]
     message = request.form["message"]
     writer = session["username"]
+    if len(title) < 1:
+        flash("Tyhjä otsikko ei kelpaa")
+        return redirect(request.referrer)
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
 
