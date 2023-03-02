@@ -40,14 +40,15 @@
                     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     <input type="hidden" name="dest" value="message" />
                 </form>
-                {%endif%}
-                    {%endif%}
             </div>
-        </div>
+            {%endif%}
 
-        {%endfor%}
+        </div>
+        {%endif%}
+
     </div>
     </div>
+    {%endfor%}
 
 {% if session.username %}
 
